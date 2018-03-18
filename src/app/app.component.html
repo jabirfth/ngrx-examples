@@ -1,3 +1,21 @@
 <mat-toolbar [color]="'primary'">
-    <span>NGRX-INTRO</span>
+    <mat-icon>home</mat-icon>
+    <span> {{title}}</span>
+
+    <span class="mat-toolbar-spacer"></span>
+
+    <mat-menu #i18nMenu="matMenu">
+        <button *ngFor="let local of locals" mat-menu-item (click)="onTranslate(local)">{{local}}</button>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="i18nMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+
 </mat-toolbar>
+
+<main class="container">
+    <mat-card>
+        {{message}}
+    </mat-card>
+</main>
