@@ -3,5 +3,8 @@ span.mat-toolbar-spacer {
 }
 
 main.container {
-    padding: 2em 23em;
+    padding: 2em 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

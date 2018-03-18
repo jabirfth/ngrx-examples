@@ -2,5 +2,6 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 body {
-    background: rgb(225, 230, 235)
+    background: rgb(225, 230, 235);
+    padding: 2em 23em;
 }

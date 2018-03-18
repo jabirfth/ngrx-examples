@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { Observable } from 'rxjs/Observable';
+
+interface I18nState {
+  i18n: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -7,27 +14,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title: string;
-  message: string;
+  message$: Observable<string>;
 
   readonly locals = ['FR', 'EN'];
+
+  constructor(private store: Store<I18nState>) {
+    this.message$ = this.store.select('i18n');
+  }
 
   ngOnInit() {
     this.onTranslate(this.locals[0]);
   }
 
   onTranslate(local: string) {
-    this.title = i18n.title[local];
-    this.message = i18n.message[local];
+    this.store.dispatch({ type: local });
   }
 }
-
-const i18n = {
-  'title': {
-    'FR': 'Accueil',
-    'EN': 'Home'
-  },
-  'message': {
-    'FR': 'Bienenue à NgRx',
-    'EN': 'Welcome to NgRx'
-  }
-};
