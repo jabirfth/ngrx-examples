@@ -1,0 +1,14 @@
+<ul class="list-group">
+  <a class="list-group-item list-group-item-action active" href="#">Fil d'actualité</a>
+  <a class="list-group-item list-group-item-action" (click)="onRead()" *ngIf="unread > 0">
+    <i class="fa fa-envelope"></i>
+    <span>Messages</span>
+    <span class="badge badge-danger">{{unread}}</span>
+  </a>
+  <a class="list-group-item list-group-item-action" (click)="onRead()" *ngIf="unread === 0">
+    <i class="far fa-envelope-open"></i>
+    <span>Messages</span>
+  </a>
+  <li class="list-group-item">Groupes</li>
+  <li class="list-group-item">Jeux</li>
+</ul>

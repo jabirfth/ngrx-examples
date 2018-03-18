@@ -1,0 +1,19 @@
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar  navbar-dark bg-primary fixed-top">
+    <a class="navbar-brand" style="color:beige">
+      <i class="fab fa-facebook-f"></i>
+      facebook
+    </a>
+
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" (click)="onRead()" href="#" *ngIf="unread>0">
+          <i class="fa fa-envelope"></i>
+          <span class="badge badge-pill badge-danger">{{unread}}</span>
+        </a>
+        <i class="far fa-envelope-open" *ngIf="unread===0"></i>
+      </li>
+    </ul>
+  </nav>
+</header>

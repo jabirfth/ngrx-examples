@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { MatModule } from './mat.module';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
+import { InboxService } from './inbox.service';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    FooterComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
-    MatModule
   ],
-  providers: [],
+  providers: [InboxService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
