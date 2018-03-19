@@ -7,13 +7,18 @@
     </a>
 
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" (click)="onRead()" href="#" *ngIf="unread>0">
-          <i class="fa fa-envelope"></i>
-          <span class="badge badge-pill badge-danger">{{unread}}</span>
-        </a>
-        <i class="far fa-envelope-open" *ngIf="unread===0"></i>
-      </li>
+      <ng-template [ngIf]="unread$ | async" [ngIfElse]="noUnreadMsg" let-unread>
+        <li class="nav-item">
+          <a class="nav-link" (click)="onRead()" href="#">
+            <i class="fa fa-envelope"></i>
+            <span class="badge badge-pill badge-danger">{{unread}}</span>
+          </a>
+        </li>
+      </ng-template>
+
+      <ng-template #noUnreadMsg>
+        <i class="far fa-envelope-open"></i>
+      </ng-template>
     </ul>
   </nav>
 </header>

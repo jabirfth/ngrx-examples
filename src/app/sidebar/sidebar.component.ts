@@ -1,35 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { InboxService } from '../inbox.service';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+import { InboxState } from '../store/inbox.reducer';
+
+import * as inboxActions from '../store/inbox.actions';
+import * as fromInboxStore from '../store/inbox.reducer';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
-  unread = 0;
+  unread$: Observable<number>;
 
-  constructor(private inboxService: InboxService) { }
-
-  ngOnInit() {
-    this.checkUnread();
-
-    setInterval(() => this.checkUnread(), 2000);
+  constructor(private store: Store<InboxState>) {
+    this.unread$ = this.store.select(fromInboxStore.getUnread);
   }
-
-  private checkUnread() {
-    this.inboxService.getThreads()
-      .map(threads => threads.unread)
-      .subscribe(
-        unread => this.unread = unread
-      );
-  }
-
 
   onRead() {
-    this.inboxService.readAll();
-    this.checkUnread();
+    this.store.dispatch(new inboxActions.ReadAll());
   }
 
 }

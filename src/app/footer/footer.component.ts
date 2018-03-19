@@ -1,36 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { InboxService } from '../inbox.service';
 
 import 'rxjs/add/operator/map';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { InboxState } from '../store/inbox.reducer';
+
+import * as inboxActions from '../store/inbox.actions';
+import * as fromInboxStore from '../store/inbox.reducer';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
-  threads: any[] = [];
+  threads$: Observable<any[]>;
 
-  constructor(private inboxService: InboxService) { }
-
-  ngOnInit() {
-    this.fetchThreads();
-
-    setInterval(() => this.fetchThreads, 2000);
-  }
-
-  private fetchThreads() {
-    this.inboxService.getThreads()
-      .map(inbox => inbox.threads)
-      .subscribe(
-        threads => this.threads = threads
-      );
+  constructor(private store: Store<InboxState>) {
+    this.threads$ = this.store.select(fromInboxStore.getThreads);
   }
 
   onRead(threadId: string) {
-    this.inboxService.read(threadId);
-    this.fetchThreads();
+    this.store.dispatch(new inboxActions.ReadOne(threadId));
   }
 
 }

@@ -1,10 +1,8 @@
 <footer class="footer">
   <div class="container-fluid row justify-content-end">
-    <ng-template ngFor [ngForOf]="threads" let-thread>
-      <a class="btn btn-outline-dark btn-sm col-md-3" (click)="onRead(thread.id)">
-        <span>Conversation {{thread.id}}</span>
-        <span class="badge badge-danger" *ngIf="thread.unread > 0">{{thread.unread}}</span>
-      </a>
-    </ng-template>
+    <a class="btn btn-outline-dark btn-sm col-md-3" (click)="onRead(thread.id)" *ngFor="let thread of (threads$ | async)">
+      <span>Conversation {{thread.id}}</span>
+      <span class="badge badge-danger" *ngIf="thread.unread > 0">{{thread.unread}}</span>
+    </a>
   </div>
 </footer>

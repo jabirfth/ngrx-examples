@@ -20,7 +20,7 @@ export class InboxService {
     return Observable.of(this.inbox);
   }
 
-  read(threadId: string) {
+  readOne(threadId: string) {
     const threadUnread = this.inbox.threads.find(thread => thread.id === threadId).unread;
     this.inbox.threads.find(thread => thread.id === threadId).unread = 0;
     this.inbox.unread -= threadUnread;
