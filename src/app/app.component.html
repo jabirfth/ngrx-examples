@@ -1,3 +1,16 @@
-<mat-toolbar [color]="'primary'">
-    <span>NGRX-INTRO</span>
-</mat-toolbar>
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">CRUD-EXAMPLE</a>
+
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item" [routerLinkActive]="'active'">
+            <a class="nav-link" [routerLink]="['produits']">PRODUITS </a>
+        </li>
+    </ul>
+</nav>
+
+<main role="main" class="container">
+    <div class="starter-template">
+        <router-outlet></router-outlet>
+    </div>
+</main>
+<!-- /.container -->
