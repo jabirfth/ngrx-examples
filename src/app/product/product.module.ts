@@ -10,6 +10,8 @@ import { ProductService } from './service/product.service';
 import { StoreModule } from '@ngrx/store';
 
 import * as fromProducts from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects } from './store/products.effects';
 
 @NgModule({
   imports: [
@@ -18,7 +20,8 @@ import * as fromProducts from './store';
     ReactiveFormsModule,
     HttpClientModule,
     ProductRoutingModule,
-    StoreModule.forFeature('products', fromProducts.reducers)
+    StoreModule.forFeature('products', fromProducts.reducers),
+    EffectsModule.forFeature([ProductsEffects])
   ],
   declarations: [
     IndexProductComponent,

@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 
 import * as fromRootStore from './store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import * as fromRootStore from './store';
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
-    StoreModule.forRoot(fromRootStore.reducers)
+    StoreModule.forRoot(fromRootStore.reducers),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

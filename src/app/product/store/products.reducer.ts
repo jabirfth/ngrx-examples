@@ -11,11 +11,7 @@ export interface State {
 }
 
 export const INIT_PRODUCTS_STATE: State = {
-    products: [
-        { id: 1, name: 'Product 1', price: 10.50 },
-        { id: 2, name: 'Product 2', price: 11.50 },
-        { id: 3, name: 'Product 3', price: 12.50 },
-    ],
+    products: [],
     currentProductId: undefined
 };
 
@@ -84,6 +80,7 @@ function handleProductUpdate(state: State, payload: Product): State {
 
     const newState = Object.assign({}, state);
     newState.products = _.unionBy([payload], newState.products, 'id');
+    newState.currentProductId = undefined;
 
     return newState;
 
@@ -93,6 +90,7 @@ function handleProductUpdate(state: State, payload: Product): State {
 function handleProductDelete(state: State, payload: number): State {
     const newState = Object.assign({}, state);
     newState.products = newState.products.filter(c => c.id !== payload);
+    newState.currentProductId = undefined;
     return newState;
 }
 
