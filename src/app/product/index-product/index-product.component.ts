@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
 import 'rxjs/add/operator/mergeMap';
+import { Observable } from 'rxjs/Observable';
 
 import { Product } from '../model/product';
 import { ProductService } from '../service/product.service';
+import * as fromProducts from '../store';
+import * as productsActions from '../store/products.actions';
 
 @Component({
   selector: 'app-index-product',
@@ -10,49 +15,35 @@ import { ProductService } from '../service/product.service';
   styleUrls: ['./index-product.component.css']
 })
 export class IndexProductComponent implements OnInit {
-  products: Product[];
+  products$: Observable<Product[]>;
 
-  product: Product;
+  product$: Observable<Product>;
 
-  constructor(private productService: ProductService) { }
+  constructor(public store: Store<fromProducts.State>) { }
 
   ngOnInit() {
-    this.productService.listProducts()
-      .subscribe(
-        products => this.products = products
-      );
+    this.products$ = this.store.select(fromProducts.getAllProducts);
+    this.product$ = this.store.select(fromProducts.getCurrentProduct);
   }
 
   onEdit(pId: number) {
-    this.productService.getProduct(pId)
-      .subscribe(
-        p => this.product = p
-      );
+    this.store.dispatch(new productsActions.SetCurrentProductId(pId));
   }
 
   onDelete(pId: number) {
-    this.productService.deleteProduct(pId)
-      .mergeMap(() => this.productService.listProducts())
-      .subscribe(
-        products => this.products = products
-      );
+    const r = confirm('Are you sure ?');
+    if (r) {
+      this.store.dispatch(new productsActions.Delete(pId));
+    }
   }
 
   onSubmit(p: Product) {
     if (!!p.id) {
       // update
-      this.productService.updateProduct(p)
-        .mergeMap(() => this.productService.listProducts())
-        .subscribe(
-          products => this.products = products
-        );
+      this.store.dispatch(new productsActions.Update(p));
     } else {
       // create
-      this.productService.createProduct(p)
-        .mergeMap(() => this.productService.listProducts())
-        .subscribe(
-          products => this.products = products
-        );
+      this.store.dispatch(new productsActions.Create(p));
     }
   }
 

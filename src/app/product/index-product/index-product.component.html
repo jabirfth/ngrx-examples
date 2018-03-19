@@ -1,5 +1,5 @@
-<app-product-table [products]="products" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-product-table>
+<app-product-table [products]="products$ | async" (edit)="onEdit($event)" (delete)="onDelete($event)"></app-product-table>
 
 <hr/>
 
-<app-product-form [product]="product" (formSubmit)="onSubmit($event)"></app-product-form>
+<app-product-form [product]="product$ | async" (formSubmit)="onSubmit($event)"></app-product-form>

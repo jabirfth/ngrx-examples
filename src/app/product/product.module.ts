@@ -7,6 +7,9 @@ import { ProductTableComponent } from './component/product-table.component';
 import { IndexProductComponent } from './index-product/index-product.component';
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductService } from './service/product.service';
+import { StoreModule } from '@ngrx/store';
+
+import * as fromProducts from './store';
 
 @NgModule({
   imports: [
@@ -15,6 +18,7 @@ import { ProductService } from './service/product.service';
     ReactiveFormsModule,
     HttpClientModule,
     ProductRoutingModule,
+    StoreModule.forFeature('products', fromProducts.reducers)
   ],
   declarations: [
     IndexProductComponent,
